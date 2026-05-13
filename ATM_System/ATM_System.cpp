@@ -19,6 +19,14 @@ struct sClient
 
 };
 sClient CurrentClient;
+enum enMainMenueOptions
+{
+    eQuickWithdraw = 1,
+    eNormalWithdraw = 2,
+    eDeposit = 3,
+    eCheckBalance = 4,
+    eLogout = 5
+};
 vector<string> SplitString(string S1, string Delim)
 {
 
@@ -125,7 +133,103 @@ bool LoadClientInfo(string AccountNumber, string PinCode) {
     else
         return false;
 }
+void GoBackToMainMenue() {
+    cout << "\n\nPress any key to go back to Main Menue...";
+    system("pause>0");
+    AtmMainMenue();
+}
+void ShowWithdrawScreen() {
+    system("cls");
+    cout << "===========================================\n";
+    cout << "\t\tQuick Withdraw\n";
+    cout << "===========================================\n";
+	cout << "      [1] 50      [2] 100      [3] 200\n";
+	cout << "      [4] 500     [5] 1000     [6] Exit\n";
+    int WithdrawOption;
+	sClient Client= CurrentClient;
+	cout << "Your Current Balance is: " << Client.AccountBalance << endl;
+	cout << "Choose Withdraw Amount? [1 to 6]? ";
+    cin >> WithdrawOption;
+    char Answer = 'n';
 
+
+    cout << "\n\nAre you sure you want perfrom this transaction? y/n ? ";
+    cin >> Answer;
+    if (Answer == 'y' || Answer == 'Y')
+    {
+        switch (WithdrawOption)
+        {
+        case 1:
+            Client.AccountBalance -= 50;
+            break;
+        case 2:
+            Client.AccountBalance -= 100;
+            break;
+        case 3:
+            Client.AccountBalance -= 200;
+            break;
+        case 4:
+            Client.AccountBalance -= 500;
+            break;
+        case 5:
+            Client.AccountBalance -= 1000;
+            break;
+		case 6:
+            AtmMainMenue();
+			break;
+        }
+        cout << "\n\nDone Successfully. New balance is: " << Client.AccountBalance;
+    }
+    else
+    {
+		cout << "\n\nTransaction Canceled.";
+    }
+   
+}
+int ReadMainMenueOptions() {
+    cout << "Choose what do you want to do? [1 to 5]? ";
+    int MainMenueOption;
+    cin >> MainMenueOption;
+    return MainMenueOption;
+}
+void PerformMainMenueOption(enMainMenueOptions MainMenueOption) {
+    switch (MainMenueOption)
+    {
+    case eQuickWithdraw:
+		system("cls");
+        ShowWithdrawScreen();
+        GoBackToMainMenue();
+        break;
+    case eNormalWithdraw:
+        cout << "You choose Normal Withdraw.\n";
+        break;
+    case eDeposit:
+        cout << "You choose Deposit.\n";
+        break;
+    case eCheckBalance:
+        cout << "You choose Check Balance.\n";
+        break;
+    case eLogout:
+        cout << "You choose Logout.\n";
+        break;
+    default:
+        cout << "Invalid Option.\n";
+        break;
+    }
+}
+void AtmMainMenue() {
+
+    system("cls");
+    cout << "===========================================\n";
+    cout << "\t\tATM Main Menue Screen\n";
+    cout << "===========================================\n";
+    cout << "\t[1] Quick Withdraw.\n";
+    cout << "\t[2] Normal Withdraw.\n";
+    cout << "\t[3] Deposit.\n";
+    cout << "\t[4] Check Balance.\n";
+    cout << "\t[5] Logout.\n";
+    cout << "===========================================\n";
+}
 void Login() {
 
     string AccountNumber, PinCode;
