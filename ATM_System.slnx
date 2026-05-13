@@ -3,5 +3,5 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
-  <Project Path="ATM_System/ATM_System.vcxproj" />
+  <Project Path="ATM_System/ATM_System.vcxproj" Id="ed6748c7-f4ee-4bbb-97dc-1f5af1c5557b" />
 </Solution>
